@@ -17,21 +17,28 @@
                 </div>
                 <div class="login-section">
                     <div class="email-textbox">
-                      <span>Email or phone</span>
+                      <span>Email</span>
                       <form action="">
-                        <input type="email" placeholder="email">
+                        <input type="Email" placeholder="Email" name="email"
+                        id="email">
                       </form>
+                      <p class="error"
+                      id="invalid_email">
+                </p>
                     </div>
+                   
+            <br>
+            
                     <div class="password-login">
                         <div>
                             <span> Password</span>
                             <form action="">
-                                <input type="password" placeholder="password">
+                                <input type="Password" placeholder="Password" id="password">
                             </form>
                             <a href="">forgotten account?</a>
                         </div>
                        
-                        <button class="login-button" type="submit">
+                        <button class="login-button" type="submit" id="submit">
                             LOGIN
                           </button>
                         
@@ -64,91 +71,38 @@
                 <h2 class="signup-text">Sign Up</h2>
             <span class="free-text">It's free and anyone can join</span>
             </div>
+            <form id="signupForm" class="signup-overall">
+              <label for="firstName" class="label-text">First Name:</label>
+              <input type="text" id="firstName" name="firstName">
+               <br>
+              <label for="lastName" class="label-text">Last Name:</label>
+              <input type="text" id="lastName" name="lastName">
+                 <br>
+              <label for="email" class="label-text">Email:</label>
+              <input type="email" id="email" name="email">
+               <br>
+              <label for="password" class="label-text">Password:</label>
+              <input type="password" id="password" name="password">
+                  
+                <br>
+                
+         <label for=""class="label-text">Gender:</label>
+     <select name="" id="Gender">
+      <option value="Man">MEN</option>
+      <option value="woman">WOMEN</option>
+        </select>
+          
             
-            <form class="data-form">
-                <label for="" class="label-text">First Name:</label>
-                <input type="text" class="input">
-            </form>
-             <form  class="data-form">
-                <label for="" class="label-text">Last Name:</label>
-                <input type="text" class="input">
-             </form>
-                <form  class="data-form">
-                    <label for=""class="label-text">Your Email:</label>
-                    <input type="text" class="input">
-                </form>
-                <form  class="data-form newpassword">
-                    <label for=""class="label-text">New Password:</label>
-                    <input type="password" class="input">
-                </form>
-               <form  class="data-form Gender">
-                <label for=""class="label-text">Gender:</label>
-                <select name="" id="Gender">
-                    <option value="Man">MEN</option>
-                    <option value="woman">WOMEN</option>
-                </select>
-                 
-               </form>
-               <form action=""  class="data-form birthday-margin">
-                <label for="birtday"class="label-text">Birthday:</label>
-                  <select name="Month" id="Month">
-                    <option value="">Month</option> 
-                    <option value="">JAN</option> 
-                    <option value="">Feb</option> 
-                    <option value="">Mar</option> 
-                    <option value="">Apr</option> 
-                    <option value="">May</option> 
-                    <option value="">June</option> 
-                    <option value="">July</option> 
-                    <option value="">Aug</option> 
-                    <option value="">Sep</option> 
-                    <option value="">Oct</option> 
-                    <option value="">Nov</option> 
-                    <option value="">Dec</option> 
-                  </select>
-                   <select name="Day" id="day">
-                     <option value="">Day</option>  
-                     <option value="">01</option>  
-                     <option value="">02</option>  
-                     <option value="">03</option>  
-                     <option value="">04</option>  
-                     <option value="">05</option>  
-                     <option value="">06</option>  
-                     <option value="">07</option>  
-                     <option value="">08</option>  
-                     <option value="">09</option>  
-                     <option value="">10</option>  
-                     <option value="">11</option>  
-                     <option value="">12</option>  
-                     <option value="">13</option> 
-                     <option value="">14</option>  
-                     <option value="">15</option>   
-                   </select>
-                   <select name="year" id="">
-                    <option value="">Year</option> 
-                    <option value="">1992</option> 
-                    <option value="">Year</option>
-                    <option value="">1993</option>  
-                    <option value="">1994</option>  
-                    <option value="">1995</option>  
-                    <option value="">1996</option>  
-                    <option value="">1997</option>  
-                    <option value="">1998</option>  
-                    <option value="">1999</option>  
-                    <option value="">2000</option>  
-                     
-
-
-
-
-                   </select>
-               </form>
-               <div class="signup-overall">
+        
                 <span class="label-text question">Why do I need to provide this ?</span>
-                <button class="signup">
-                  Sign Up
-                </button>
-               </div>
+                <br>
+
+
+
+              <input type="submit" value="Sign Up" class="signup">
+              
+            </form>
+               
               
              
             
@@ -164,26 +118,98 @@
     </section>
 
 
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+     <script>
+
+$(document).ready(function () {
+			$('#submit').click(function (e) {
+				e.preventDefault();
+				const password = $('#password').val();
+				const email = $('#email').val();
+
+				if (password === '' || email === '') {
+					$('#invalid_email').text("Input Fields can not be Empty!!");
+					$('#invalid_email').css("color", "red");
+					return false;
+				}
+				else if (IsEmail(email) === false) {
+					$('#invalid_email').text("Entered Email is not Valid!!");
+					$('#invalid_email').css("color", "red");
+					return false;
+				}
+				else{
+					$('#invalid_email').text("Entered Email is Valid!!");
+					$('#invalid_email').css("color", "green");
+					return true;
+				}
+				return false;
+			});
+           
+            //name validation
+
+		});
+
+		function IsEmail(email) {
+			const regex =
+/^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			if (!regex.test(email)) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+	</script>
+     </script>
+
+     <script>
+      $(document).ready(function() {
+        $("#signupForm").submit(function(event) {
+          // Prevent the form from submitting
+          event.preventDefault();
+  
+          // Perform form validation
+          if (validateForm()) {
+            // Form is valid, you can perform additional actions or submit the form
+            alert("Form submitted successfully!");
+            // Uncomment the line below to actually submit the form
+            // $(this).unbind('submit').submit();
+          }
+        });
+  
+        function validateForm() {
+          // Basic validation example, you can customize it based on your requirements
+          var firstName = $("#firstName").val();
+          var lastName = $("#lastName").val();
+          var email = $("#email").val();
+          var password = $("#password").val();
+  
+          // Validate First Name
+          if (!isValidName(firstName)) {
+            alert("Please enter a valid first name.");
+            return false;
+          }
+  
+          if (lastName === "" || email === "" || password === "") {
+            alert("All fields are required");
+            return false;
+          }
+  
+          // You can add more complex validation logic here
+  
+          return true;
+        }
+  
+        function isValidName(name) {
+          // Check if the name contains only letters and is at least 2 characters long
+          var nameRegex = /^[a-zA-Z]{2,}$/;
+          return nameRegex.test(name);
+        }
+      });
+    </script>
 
 
 
-
-
-
-
-    <!-- <form>
-        <h2>Sign Up</h2>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="submit">Sign Up</button>
-    </form> -->
 
 </body>
 </html>
